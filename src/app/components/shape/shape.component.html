@@ -1,0 +1,12 @@
+<div class="smily-wrapper">
+    <div class="smily small" [ngClass]="{'small': isSmall,
+                                'square': shape.getType()==shapeTypes.Square,
+                                'rectangle': shape.getType()==shapeTypes.Rectangle,
+                                'triangle': shape.getType()==shapeTypes.Triangle,
+                                'normal': shape.getMood()==moodTypes.Normal,
+                                'happy': shape.getMood()==moodTypes.Happy,
+                                'super-happy': shape.getMood()==moodTypes.SuperHappy}">
+        <div class="eyes"></div>
+        <div class="lips"></div>
+    </div>
+</div>

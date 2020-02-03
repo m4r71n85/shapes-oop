@@ -1,0 +1,145 @@
+.smily-wrapper {
+  width: 190px;
+}
+.smily.small {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #442200;
+  &.rectangle {
+    width: 175px;
+  }
+  &.triangle {
+    border-width: 0px 100px 100px 100px;
+
+    .eyes:before,
+    .eyes:after {
+      margin-top: 25px;
+    }
+    .lips {
+      margin-top: 20px;
+    }
+  }
+  &.super-happy {
+    .eyes:before,
+    .eyes:after {
+      height: 20px;
+    }
+    .lips {
+      height: 67px;
+      border-bottom: 28px solid #442200;
+    }
+  }
+
+  .eyes:before,
+  .eyes:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    width: 15px;
+    height: 22px;
+  }
+  .lips {
+    width: 65px;
+    height: 50px;
+    border: 5px solid transparent;
+    border-bottom: 5px solid #442200;
+  }
+}
+.smily {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: #fffb53;
+  border-radius: 50%;
+  border: 5px solid #442200;
+  transition: 0.5s;
+
+  .eyes:before,
+  .eyes:after {
+    content: '';
+    position: absolute;
+    top: 30%;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #442200;
+    transition: 0.5s;
+    width: 30px;
+    height: 45px;
+  }
+  .eyes:before {
+    left: 25%;
+  }
+  .eyes:after {
+    right: 25%;
+  }
+  .lips {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 100px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid #442200;
+    border-radius: 50%;
+    transition: 0.5s;
+  }
+}
+
+.rectangle.smily,
+.square.smily {
+  border-radius: 0;
+}
+.rectangle.smily {
+  width: 350px;
+}
+
+.triangle.smily {
+  border-style: solid;
+  border-width: 0px 200px 200px 200px;
+  border-color: transparent transparent #fffb53 transparent;
+  border-radius: 0;
+  background-color: transparent !important;
+
+  .eyes:before,
+  .eyes:after {
+    margin-top: 50px;
+  }
+  .lips {
+    margin-top: 40px;
+  }
+}
+.smily {
+  &.super-happy {
+    .eyes:before,
+    .eyes:after {
+      height: 40px;
+    }
+    .lips {
+      height: 135px;
+      border-bottom: 56px solid #442200;
+    }
+  }
+
+  &.happy {
+    background-color: #7bc685;
+    &.triangle {
+      border-color: transparent transparent #7bc685 transparent;
+    }
+  }
+
+  &.normal {
+    background-color: #5bc6ff;
+    &.triangle {
+      border-color: transparent transparent #5bc6ff transparent;
+    }
+    .lips {
+      border-radius: 20%;
+    }
+  }
+}
+
+.small {
+  transform: scale(0.5);
+}
