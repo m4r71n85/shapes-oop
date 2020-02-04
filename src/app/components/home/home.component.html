@@ -1,126 +1,153 @@
-<div class="row mb-5">
-    <div class="col">
-        <h1 class="title">Shapes Generator</h1>
-    </div>
-</div>
-<div class="row">
-    <div>Choose shape
-        <div [(ngModel)]="selectedShape" class="btn-group btn-group-toggle" ngbRadioGroup name="shape-type">
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="shapeTypes.Circle"
-                    (click)="createNewShape(shapeTypes.Circle, selectedMood)">
-                Circle
-            </label>
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="shapeTypes.Square" class="select-square"
-                    (click)="createNewShape(shapeTypes.Square, selectedMood)">
-                Square
-            </label>
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="shapeTypes.Rectangle"
-                    (click)="createNewShape(shapeTypes.Rectangle, selectedMood)">
-                Rectangle
-            </label>
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="shapeTypes.Triangle"
-                    (click)="createNewShape(shapeTypes.Triangle, selectedMood)">
-                Triangle
-            </label>
-        </div>
-    </div>
-</div>
-<div class="row mt-3">
-    <div>Choose mood
-        <div [(ngModel)]="selectedMood" class="btn-group btn-group-toggle" ngbRadioGroup name="shape-type">
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="moodTypes.Normal"
-                    (click)="createNewShape(selectedShape, moodTypes.Normal)"> Normal
-            </label>
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="moodTypes.Happy"
-                    (click)="createNewShape(selectedShape, moodTypes.Happy)"> Happy
-            </label>
-            <label ngbButtonLabel class="btn-primary">
-                <input ngbButton type="radio" [value]="moodTypes.SuperHappy"
-                    (click)="createNewShape(selectedShape, moodTypes.SuperHappy)"> Super Happy
-            </label>
-        </div>
-    </div>
-</div>
-<div class="row pt-5" *ngIf="newShape">
-    <div class="col-5">
-        <shape [shape]="newShape"></shape>
-    </div>
-    <div class="col-2">
-        <form #shapeForm="ngForm">
-            <div class="form-group" *ngIf="selectedShape == shapeTypes.Square || selectedShape == shapeTypes.Rectangle">
-                <label>Side A:
-                    <input type="number" required class="form-control" min="1" [(ngModel)]="shapeParams.sideA"
-                        name="sideA" #sideA="ngModel">
-                    <small class="text-danger" *ngIf="sideA.touched && !sideA.valid">Please input a number</small>
-                </label>
-            </div>
-            <div class="form-group"
-                *ngIf="selectedShape == shapeTypes.Rectangle || selectedShape== shapeTypes.Triangle">
-                <label>Side B:
-                    <input type="number" required class="form-control" min="1" [(ngModel)]="shapeParams.sideB"
-                        name="sideB" #sideB="ngModel">
-                    <small class="text-danger" *ngIf="sideB.touched && !sideB.valid">Please input a number</small>
-                </label>
-            </div>
-            <div class="form-group" *ngIf="selectedShape == shapeTypes.Circle">
-                <label>Radius:
-                    <input type="number" required class="form-control" min="1" [(ngModel)]="shapeParams.radius"
-                        name="radius" #radius="ngModel">
-                    <small class="text-danger" *ngIf="radius.touched && !radius.valid">Please input a number</small>
-                </label>
-            </div>
-            <div class="form-group" *ngIf="selectedShape == shapeTypes.Triangle">
-                <label>Height:
-                    <input type="number" required class="form-control" min="1" [(ngModel)]="shapeParams.height"
-                        name="height" #height="ngModel">
-                    <small class="text-danger" *ngIf="height.touched && !height.valid">Please input a number</small>
-                </label>
-            </div>
-            <button class="btn btn-success" (click)="submitShape(); shapeForm.reset()"
-                [disabled]="!shapeForm.form.valid">Submit</button>
-        </form>
-    </div>
-    <div class="col-5" *ngIf="allShapes.length">
-        <div>
-            <strong>
-                Total area
-            </strong>
-            <span>
-                {{getTotalArea() | number: '1.0-2'}}
-            </span>
-        </div>
-        <div class="list-shapes-wrapper">
+<div class="jumbotron">
+    <h1 class="display-3">Shapes Generator</h1>
+    <p class="lead">This is an Angular application, demonstrating SOLID OOP principles.
+        <br />Some of the techniques used are factory design pattern, typescript polymorphism, method overriding,
+        abstract classes/methods.</p>
 
-            <div *ngFor="let shape of allShapes.slice().reverse(); index as i" class="list-shapes">
-                <div class="row">
-                    <div class="col-6 pt-3 text-right">
-                        <div>
-                            <strong>#</strong>
-                            {{allShapes.length-i}}
-                        </div>
-                        <div>
-                            <strong>Area</strong>
-                            {{shape.getArea() | number: '1.0-2'}}
-                        </div>
-                        <div>
-                            <strong>Corners</strong>
-                            {{shape.getCornersDependOnMood() | number: '1.0-2'}}
-                        </div>
+    <hr class="my-4 pb-3">
 
+    <div class="row">
+        <div class="col">Choose shape
+            <div [(ngModel)]="selectedShape" class="btn-group btn-group-toggle" ngbRadioGroup name="shape-type">
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="shapeTypes.Circle"
+                        (click)="createNewShape(shapeTypes.Circle, selectedMood)">
+                    Circle
+                </label>
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="shapeTypes.Square" class="select-square"
+                        (click)="createNewShape(shapeTypes.Square, selectedMood)">
+                    Square
+                </label>
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="shapeTypes.Rectangle"
+                        (click)="createNewShape(shapeTypes.Rectangle, selectedMood)">
+                    Rectangle
+                </label>
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="shapeTypes.Triangle"
+                        (click)="createNewShape(shapeTypes.Triangle, selectedMood)">
+                    Triangle
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 mb-5">
+        <div class="col">Choose mood
+            <div [(ngModel)]="selectedMood" class="btn-group btn-group-toggle" ngbRadioGroup name="shape-type">
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="moodTypes.Normal"
+                        (click)="createNewShape(selectedShape, moodTypes.Normal)"> Normal
+                </label>
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="moodTypes.Happy"
+                        (click)="createNewShape(selectedShape, moodTypes.Happy)"> Happy
+                </label>
+                <label ngbButtonLabel class="btn btn-primary">
+                    <input ngbButton type="radio" [value]="moodTypes.SuperHappy"
+                        (click)="createNewShape(selectedShape, moodTypes.SuperHappy)"> Super Happy
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2" *ngIf="newShape">
+        <div class="col-5">
+            <div class="card border-info mb-3">
+                <div class="card-header">Shape</div>
+                <div class="card-body">
+                    <shape [shape]="newShape"></shape>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="card border-warning mb-3">
+                <div class="card-header">Dimentions</div>
+                <div class="card-body">
+                    <form #shapeForm="ngForm">
+                        <div class="form-group"
+                            *ngIf="selectedShape == shapeTypes.Square || selectedShape == shapeTypes.Rectangle">
+                            <label>Side A:
+                                <input type="number" required class="form-control" min="1"
+                                    [(ngModel)]="shapeParams.sideA" name="sideA" #sideA="ngModel"
+                                    [class.is-invalid]="sideA.touched && !sideA.valid">
+                                <small class="text-danger" *ngIf="sideA.touched && !sideA.valid">Please input a
+                                    number</small>
+                            </label>
+                        </div>
+                        <div class="form-group"
+                            *ngIf="selectedShape == shapeTypes.Rectangle || selectedShape== shapeTypes.Triangle">
+                            <label>Side B:
+                                <input type="number" required class="form-control" min="1"
+                                    [(ngModel)]="shapeParams.sideB" name="sideB" #sideB="ngModel"
+                                    [class.is-invalid]="sideB.touched && !sideB.valid">
+                                <small class="text-danger" *ngIf="sideB.touched && !sideB.valid">Please input a
+                                    number</small>
+                            </label>
+                        </div>
+                        <div class="form-group" *ngIf="selectedShape == shapeTypes.Circle">
+                            <label>Radius:
+                                <input type="number" required class="form-control" min="1"
+                                    [(ngModel)]="shapeParams.radius" name="radius" #radius="ngModel"
+                                    [class.is-invalid]="radius.touched && !radius.valid">
+                                <small class="text-danger" *ngIf="radius.touched && !radius.valid">Please input a
+                                    number</small>
+                            </label>
+                        </div>
+                        <div class="form-group" *ngIf="selectedShape == shapeTypes.Triangle">
+                            <label>Height:
+                                <input type="number" required class="form-control" min="1"
+                                    [(ngModel)]="shapeParams.height" name="height" #height="ngModel"
+                                    [class.is-invalid]="height.touched && !height.valid">
+                                <small class="text-danger" *ngIf="height.touched && !height.valid">Please input a
+                                    number</small>
+                            </label>
+                        </div>
+                        <button class="btn btn-success" (click)="submitShape(); shapeForm.reset()"
+                            [disabled]="!shapeForm.form.valid">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="card border-success mb-3">
+                <div class="card-header">All shapes</div>
+                <div class="card-body">
+                    <div>
+                        <strong>
+                            Total area
+                        </strong>
+                        <span>
+                            {{getTotalArea() | number: '1.0-2'}}
+                        </span>
                     </div>
-                    <div class="col-6 ">
-                        <shape [shape]="shape" [isSmall]="true"></shape>
+                    <div class="list-shapes-wrapper">
+
+                        <div *ngFor="let shape of allShapes.slice().reverse(); index as i" class="list-shapes">
+                            <div class="row">
+                                <div class="col-6 pt-3 text-right">
+                                    <div>
+                                        <strong>#</strong>
+                                        {{allShapes.length-i}}
+                                    </div>
+                                    <div>
+                                        <strong>Area</strong>
+                                        {{shape.getArea() | number: '1.0-2'}}
+                                    </div>
+                                    <div>
+                                        <strong>Corners</strong>
+                                        {{shape.getCornersDependOnMood() | number: '1.0-2'}}
+                                    </div>
+
+                                </div>
+                                <div class="col-6 ">
+                                    <shape [shape]="shape" [isSmall]="true"></shape>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>

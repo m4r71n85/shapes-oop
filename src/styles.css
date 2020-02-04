@@ -1,22 +1,25 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #e6e6e6;
 }
 .container {
-  background-color: #fff;
   min-height: 100vh;
 }
-.form-control.ng-touched.ng-invalid {
-  border: 1px solid #f00;
-}
 .list-shapes-wrapper {
-  max-height: 500px;
+  max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 .list-shapes-wrapper .list-shapes:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
-.row {
+h1 {
+  font-size: 3 rem !important;
+}
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 2rem 2rem;
+    min-height: 720px;
+    width: 1200px;
+  }
 }
