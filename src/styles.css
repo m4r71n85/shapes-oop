@@ -1,9 +1,16 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #000;
 }
-.container {
-  min-height: 100vh;
+@media (min-width: 1200px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 1295px;
+  }
 }
 .list-shapes-wrapper {
   max-height: 300px;
@@ -16,10 +23,16 @@ body {
 h1 {
   font-size: 3 rem !important;
 }
+.jumbotron {
+  background-color: #2b3e50;
+}
 @media (min-width: 576px) {
   .jumbotron {
-    padding: 2rem 2rem;
     min-height: 720px;
     width: 1200px;
   }
+}
+
+hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
