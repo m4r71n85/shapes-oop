@@ -29,7 +29,6 @@ h1 {
 @media (min-width: 576px) {
   .jumbotron {
     min-height: 720px;
-    width: 1200px;
   }
 }
 
