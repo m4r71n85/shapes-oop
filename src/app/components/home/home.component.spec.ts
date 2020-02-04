@@ -6,15 +6,17 @@ import { FormsModule } from '@angular/forms';
 import { ShapeComponent } from '../shape/shape.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, By } from '@angular/platform-browser';
 import { routing } from 'src/app/app.router';
 import { ShapeType } from 'src/app/models/enums/shape-type.enum';
 import { MoodType } from 'src/app/models/enums/mood-type.enum';
 import { AppComponent } from 'src/app/app.component';
+import { DOMHelper } from 'src/helpers/dom-helper';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
+  let dh: DOMHelper<HomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -32,38 +34,64 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
+    dh = new DOMHelper(fixture);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should render title', () => {
-  //   let compiled = fixture.debugElement.nativeElement;
-  //   expect(compiled.querySelector('h1.title').textContent).toContain(
-  //     'Shapes Generator'
-  //   );
-  // });
-
-  // it('should create a happy square', async(() => {
-  //   let component = fixture.componentRef;
-
-  //   console.log(component.instance);
-
-  //   component.instance.createNewShape(ShapeType.Circle, MoodType.Happy);
-  //   expect(component.instance.newShape.getMood()).toEqual(MoodType.Normal);
-  // }));
-
-  it('should be wtf', () => {
-    expect(component.test()).toEqual('test');
+  it(`should have title 'Shapes Generator'`, () => {
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain(
+      'Shapes Generator'
+    );
   });
 
-  it('should create triangle', () => {
-    expect(
-      component
-        .createNewShape(ShapeType.Triangle, MoodType.SuperHappy)
-        .getMood()
-    ).toEqual(MoodType.SuperHappy);
+  it('should have description longer than 10 characters', () => {
+    let compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('p.lead').textContent.length).toBeGreaterThan(
+      10
+    );
+  });
+
+  it('should have 4 select-shape buttons', () => {
+    let compiled = fixture.debugElement;
+    dh.findAll('.shape-selector .btn');
+    expect(compiled.queryAll(By.css('.shape-selector .btn')).length).toEqual(4);
+  });
+
+  it('should have 3 select-mood buttons', () => {
+    let compiled = fixture.debugElement;
+    expect(compiled.queryAll(By.css('.mood-selector .btn')).length).toEqual(3);
+  });
+
+  it(`initial figure should be a 'circle'`, () => {
+    let compiled = fixture.debugElement.nativeElement;
+    var selectedButtonText = compiled
+      .querySelector('.shape-selector .btn')
+      .textContent.trim();
+    expect(selectedButtonText).toEqual('Circle');
+  });
+
+  it(`initial mood should be a 'happy'`, () => {
+    let compiled = fixture.debugElement.nativeElement;
+    var selectedButtonText = compiled
+      .querySelector('.mood-selector .btn')
+      .textContent.trim();
+    expect(selectedButtonText).toEqual('Normal');
+  });
+
+  it('Should call createNewShape once when we click select-shape button', () => {
+    spyOn(component, 'createNewShape');
+    dh.clickButton('Square');
+    expect(component.createNewShape).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should call createNewShape once when we click select-mood button', () => {
+    spyOn(component, 'createNewShape');
+    dh.clickButton('Super Happy');
+    expect(component.createNewShape).toHaveBeenCalledTimes(1);
   });
 });

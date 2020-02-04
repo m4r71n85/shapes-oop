@@ -29,9 +29,6 @@ export class HomeComponent {
     return this.newShape;
   }
 
-  public test(): string {
-    return 'test';
-  }
   public submitShape() {
     this.newShape.submitParams(this.shapeParams);
     this.allShapes.push(this.newShape);

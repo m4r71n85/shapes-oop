@@ -7,7 +7,7 @@
     <hr class="my-4 pb-3">
 
     <div class="row">
-        <div class="col"><span class="d-none d-xl-inline">Choose shape</span>
+        <div class="col shape-selector"><span class="d-none d-xl-inline">Choose shape</span>
             <div [(ngModel)]="selectedShape" class="btn-group btn-group-toggle ml-2" ngbRadioGroup name="shape-type">
                 <label ngbButtonLabel class="btn btn-primary">
                     <input ngbButton type="radio" [value]="shapeTypes.Circle"
@@ -15,7 +15,7 @@
                     Circle
                 </label>
                 <label ngbButtonLabel class="btn btn-primary">
-                    <input ngbButton type="radio" [value]="shapeTypes.Square" class="select-square"
+                    <input ngbButton type="radio" [value]="shapeTypes.Square"
                         (click)="createNewShape(shapeTypes.Square, selectedMood)">
                     Square
                 </label>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="row mt-3 mb-5">
-        <div class="col"><span class="d-none d-xl-inline">Choose mood</span>
+        <div class="col mood-selector"><span class="d-none d-xl-inline">Choose mood</span>
             <div [(ngModel)]="selectedMood" class="btn-group btn-group-toggle ml-2" ngbRadioGroup name="shape-type">
                 <label ngbButtonLabel class="btn btn-primary">
                     <input ngbButton type="radio" [value]="moodTypes.Normal"
